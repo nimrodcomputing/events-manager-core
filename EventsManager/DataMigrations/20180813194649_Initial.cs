@@ -1,14 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EventsManager.Data.Migrations
+namespace EventsManager.DataMigrations
 {
     public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -23,11 +23,11 @@ namespace EventsManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Session",
+                name: "Sessions",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
@@ -42,28 +42,28 @@ namespace EventsManager.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Session", x => x.Id);
+                    table.PrimaryKey("PK_Sessions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Session_Event_EventId",
+                        name: "FK_Sessions_Events_EventId",
                         column: x => x.EventId,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Session_EventId",
-                table: "Session",
+                name: "IX_Sessions_EventId",
+                table: "Sessions",
                 column: "EventId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Session");
+                name: "Sessions");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Events");
         }
     }
 }

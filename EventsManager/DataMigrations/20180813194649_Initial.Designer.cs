@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EventsManager.Data.Migrations
+namespace EventsManager.DataMigrations
 {
     [DbContext(typeof(EventsDb))]
-    [Migration("20180813162318_Initial")]
+    [Migration("20180813194649_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace EventsManager.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846");
 
-            modelBuilder.Entity("EventsManager.Entities.Event", b =>
+            modelBuilder.Entity("EventsManager.Models.Entities.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -48,10 +48,10 @@ namespace EventsManager.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Event");
+                    b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("EventsManager.Entities.Session", b =>
+            modelBuilder.Entity("EventsManager.Models.Entities.Session", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -80,12 +80,12 @@ namespace EventsManager.Data.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Session");
+                    b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("EventsManager.Entities.Session", b =>
+            modelBuilder.Entity("EventsManager.Models.Entities.Session", b =>
                 {
-                    b.HasOne("EventsManager.Entities.Event", "Event")
+                    b.HasOne("EventsManager.Models.Entities.Event", "Event")
                         .WithMany("Sessions")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade);
