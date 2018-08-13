@@ -13,6 +13,7 @@ namespace EventsManager.Data
     {
         public EventsDb(DbContextOptions<EventsDb> options) : base(options)
         {
+            Database.Migrate();
         }
 
         public DbSet<Event> Events { get; set; }
