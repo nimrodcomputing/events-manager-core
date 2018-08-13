@@ -8,7 +8,7 @@ namespace EventsManager.Identity.Data
     {
         public IdentityDb(DbContextOptions<IdentityDb> options) : base(options)
         {
-            Database.Migrate();
+//            Database.Migrate();
         }
 
         #region Overrides of DbContext

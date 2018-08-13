@@ -23,7 +23,10 @@ namespace EventsManager.Identity.Controllers
         {
             var users = _userManager.Users.Select(u => new UserResource
             {
+                Id = u.Id,
                 UserName = u.UserName,
+                Surname = u.Surname,
+                Forename = u.Forename,
                 Email = u.Email,
                 EmailConfirmed = u.EmailConfirmed,
                 PhoneNumber = u.PhoneNumber,
@@ -39,9 +42,13 @@ namespace EventsManager.Identity.Controllers
 
     public class UserResource
     {
+        public string Id { get; set; }
+
         public string UserName { get; set; }
 
-        public string Email { get; set; }
+        public string Surname { get; set; }
+
+        public string Forename { get; set; }        public string Email { get; set; }
 
         public bool EmailConfirmed { get; set; }
 
@@ -54,5 +61,6 @@ namespace EventsManager.Identity.Controllers
         public DateTimeOffset? LockoutEnd { get; set; }
 
         public int? AccessFailedCount { get; set; }
+
     }
 }

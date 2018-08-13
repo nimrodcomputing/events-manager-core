@@ -83,19 +83,36 @@ namespace EventsManager.Identity.Controllers
                 }
             }
 
+            foreach (var user in _userManager.Users.ToList())
+            {
+                await _userManager.DeleteAsync(user);
+            }
+
             var users = new[]
             {
                 "admin@huntermail.org",
                 "william@huntermail.org"
             };
 
-            foreach (string user in users)
+            foreach (string userName in users)
             {
-                await _userManager.CreateAsync(new User
+                var user = await _userManager.FindByNameAsync(userName);
+                if (user == null)
                 {
-                    UserName = user,
-                    Email = user
-                }, "P@ssword1");
+                    await _userManager.CreateAsync(new User
+                    {
+                        UserName = userName,
+                        Email = userName,
+                        Forename = userName.Substring(0,1).ToUpper() + userName.Split("@")[0].Substring(1),
+                        Surname = userName.StartsWith("admin") ? "Admin" : "Hunter"
+                    }, "P@ssword1");
+                }
+                else
+                {
+                    user.Forename = userName.Substring(0, 1).ToUpper() + userName.Split("@")[0].Substring(1);
+                    user.Surname = userName.StartsWith("admin") ? "Admin" : "Hunter";
+                    await _userManager.UpdateAsync(user);
+                }
             }
 
             return NoContent();
