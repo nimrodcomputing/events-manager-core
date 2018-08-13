@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Text;
+using EventsManager.Data;
 using EventsManager.Identity.Data;
 using EventsManager.Identity.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -53,6 +54,7 @@ namespace EventsManager
                 });
 
             services.AddDbContext<IdentityDb>(options => options.UseSqlite("Filename=./identity.db"));
+            services.AddDbContext<EventsDb>(options => options.UseSqlite("Filename=./events.db"));
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<IdentityDb>().AddDefaultTokenProviders();
             
