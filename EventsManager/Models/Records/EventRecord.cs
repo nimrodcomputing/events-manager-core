@@ -27,8 +27,6 @@ namespace EventsManager.Models.Records
         
         public PublicationStatus PublicationStatus { get; set; }
 
-        public byte[] Image { get; set; }
-
         #region Implementation of IValidatableObject
 
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

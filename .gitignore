@@ -236,3 +236,4 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 EventsManager/identity.db
+EventsManager/events.db
