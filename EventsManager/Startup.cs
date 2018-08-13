@@ -3,6 +3,7 @@ using System.Text;
 using EventsManager.Data;
 using EventsManager.Identity.Data;
 using EventsManager.Identity.Models;
+using EventsManager.Services.Base;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -15,6 +16,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace EventsManager
 {
@@ -30,7 +33,12 @@ namespace EventsManager
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt =>
+                {
+                    opt.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
 
             services.AddAuthorization(options =>
             {
@@ -58,6 +66,8 @@ namespace EventsManager
 
             services.AddIdentity<User, Role>().AddEntityFrameworkStores<IdentityDb>().AddDefaultTokenProviders();
             
+            services.AddAppServices();
+            
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist/events-manager-angular"; });
         }
@@ -84,12 +94,11 @@ namespace EventsManager
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseAngularCliServer( "start");
                 }
             });
         }
