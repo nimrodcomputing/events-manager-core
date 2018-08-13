@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EventsManager.Models.Enums;
+using EventsManager.Models.Records.Base;
 
-namespace EventsManager.Models
+namespace EventsManager.Models.Records
 {
-    public class EventModel : Model
+    public class EventRecord : Record
     {
         [StringLength(50)]
         public string Name { get; set; }

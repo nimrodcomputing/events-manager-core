@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using EventsManager.Models.Records.Base;
 
-namespace EventsManager.Models
+namespace EventsManager.Models.Records
 {
-    public class SessionModel : Model
+    public class SessionRecord : Record
     {
 
         [StringLength(50)]

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
-namespace EventsManager.Models
+namespace EventsManager.Models.Records.Base
 {
-    public  class Model : IValidatableObject
+    public  class Record : IValidatableObject
     {
         // by default, properties have an order of -1
         // this is the belt and braces way of making sure the id is generated first
